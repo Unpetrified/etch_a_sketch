@@ -9,7 +9,7 @@ h1 {
     margin: 10px;
 }
 
-.reset, .rainbow {
+.reset, .rainbow, .eraser {
     background-color: rgb(209, 0, 0);
     color: white;
     font-weight: bolder;
@@ -51,4 +51,8 @@ h1 {
 
 .rainbow {
     background-color: blue;
+}
+
+.eraser {
+    background-color: green;
 }

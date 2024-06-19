@@ -1,12 +1,15 @@
 let resetBtn = document.querySelector(".reset"),
     pad = document.querySelector(".pad"),
     rainbow = document.querySelector(".rainbow"),
-    rainbowMode = false;
+    eraser = document.querySelector(".eraser"),
+    rainbowMode = false,
+    eraserMode = false;
 
 resetBoard(16);
 
 resetBtn.addEventListener('click', resetBoard);
 rainbow.addEventListener('click', toggleRainbow);
+eraser.addEventListener('click', toggleEraser);
 
 function resetBoard(size=16) {
     
@@ -28,6 +31,9 @@ function resetBoard(size=16) {
     }
     
     pad.innerHTML = "";
+
+    eraserMode = false;
+    eraser.style.backgroundColor = "green";
 
     for (let index = 0; index < size; index++) {
         let pixelRow = document.createElement("div");
@@ -52,18 +58,24 @@ function resetBoard(size=16) {
 }
 
 function makeSketch(e) {
+
+    if (eraserMode) {
+        e.target.style.backgroundColor = "white";
+        e.target.setAttribute("opacity", 0);
+        return
+    }
+
     let opacity = Number.parseFloat(e.target.getAttribute("opacity"));
 
-    if (opacity > 1) return;
-
-    if (!rainbowMode) {
+    if (!rainbowMode && opacity < 1) {
         opacity += 0.1;
     }
     
-    e.target.setAttribute("opacity", opacity)
+    e.target.setAttribute("opacity", opacity);
 
     if (rainbowMode) {
-        e.target.style.backgroundColor = getRandomPalette(1);  
+        e.target.style.backgroundColor = getRandomPalette(1);
+        e.target.setAttribute("opacity", 0);
     } else {
         e.target.style.backgroundColor = `rgba(0, 0, 0, ${opacity})`;
     }
@@ -76,7 +88,16 @@ function toggleRainbow() {
     } else {
         rainbow.style.backgroundColor = "blue";
     }
+}
 
+function toggleEraser() {
+    eraserMode = !eraserMode;
+
+    if (eraserMode) {
+        eraser.style.backgroundColor = "rgb(0, 54, 0)";
+    } else {
+        eraser.style.backgroundColor = "green";
+    }
 }
 
 function getRandomPalette(opacity) {
