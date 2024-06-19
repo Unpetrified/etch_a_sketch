@@ -26,31 +26,17 @@ function resetBoard(size=16) {
     
     pad.innerHTML = "";
 
-    if (size === 1) {
-        let pixel = document.createElement("div");
-        pixel.classList.add("pixel");
-        pixel.setAttribute("style", `heigh:100%; width:100%;`);
-        pixel.setAttribute("height", "100%");
-        pixel.setAttribute("opacity", 0);
-
-        pixel.addEventListener('mouseover', makeSketch);
-
-        pad.appendChild(pixel)
-
-        return
-    }
-
     for (let index = 0; index < size; index++) {
         let pixelRow = document.createElement("div");
         pixelRow.classList.add("pixel-row");
 
         let dimensions = 100/size;
-        pixelRow.setAttribute("height", dimensions+"%");
+        pixelRow.setAttribute("style", `height: ${dimensions}%;`);
 
         for (let i = 0; i < size; i++) {
             let pixel = document.createElement("div");
             pixel.classList.add("pixel");
-            pixel.setAttribute("width", dimensions+"%");
+            pixel.setAttribute("style", `width: ${dimensions}%;`);
             pixel.setAttribute("opacity", 0);
 
             pixel.addEventListener('mouseover', makeSketch);
