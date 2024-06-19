@@ -33,7 +33,7 @@ body {
 }
 
 .pixel {
-    background-color: black;
+    background-color: rgba(0, 0, 0, 0);
     width: 50%;
     height: 100%;
 }

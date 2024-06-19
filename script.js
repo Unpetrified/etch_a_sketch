@@ -1,10 +1,16 @@
 let resetBtn = document.querySelector(".reset"),
     pad = document.querySelector(".pad");
 
+resetBoard(16);
+
 resetBtn.addEventListener('click', resetBoard);
 
-function resetBoard() {
-    let size = Number.parseInt(prompt("Choose pad resolution (1-100)"));
+function resetBoard(size=16) {
+    
+    if (size !== 16) {
+        let gridSize = Number.parseInt(prompt("Choose pad resolution (1-100)"));
+        size = gridSize;
+    }
     
     pad.innerHTML = "";
 
@@ -18,7 +24,7 @@ function resetBoard() {
         for (let i = 0; i < size; i++) {
             let pixel = document.createElement("div");
             pixel.classList.add("pixel");
-            pixel.setAttribute("width", dimensions+"");
+            pixel.setAttribute("width", dimensions+"%");
 
             pixelRow.appendChild(pixel);         
         }
