@@ -1,9 +1,12 @@
 let resetBtn = document.querySelector(".reset"),
-    pad = document.querySelector(".pad");
+    pad = document.querySelector(".pad"),
+    rainbow = document.querySelector(".rainbow"),
+    rainbowMode = false;
 
 resetBoard(16);
 
 resetBtn.addEventListener('click', resetBoard);
+rainbow.addEventListener('click', toggleRainbow);
 
 function resetBoard(size=16) {
     
@@ -53,8 +56,34 @@ function makeSketch(e) {
 
     if (opacity > 1) return;
 
-    opacity += 0.1;
+    if (!rainbowMode) {
+        opacity += 0.1;
+    }
     
     e.target.setAttribute("opacity", opacity)
-    e.target.style.backgroundColor = `rgba(0, 0, 0, ${opacity})`;
+
+    if (rainbowMode) {
+        e.target.style.backgroundColor = getRandomPalette(1);  
+    } else {
+        e.target.style.backgroundColor = `rgba(0, 0, 0, ${opacity})`;
+    }
+}
+
+function toggleRainbow() {
+    rainbowMode = !rainbowMode;
+    if (rainbowMode) {
+        rainbow.style.backgroundColor = "rgb(0, 0, 139)";
+    } else {
+        rainbow.style.backgroundColor = "blue";
+    }
+
+}
+
+function getRandomPalette(opacity) {
+    let red = Math.ceil((1.5 + Math.random()) * 100),
+        green = Math.ceil((1.5 + Math.random()) * 100),
+        blue = Math.ceil((1.5 + Math.random()) * 100),
+        color = `rgba(${red}, ${green}, ${blue}, ${opacity})`;
+
+    return color;
 }
